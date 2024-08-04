@@ -3,31 +3,31 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+  --foreground-rgb: 0, 0, 0; /* Black text */
+  --background-rgb: 255, 255, 255; /* White background */
 }
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  background-color: rgb(var(--background-rgb));
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+/* Additional styles for form elements */
+input, textarea {
+  color: rgb(var(--foreground-rgb));
+  background-color: rgb(var(--background-rgb));
+  border: 1px solid #ccc; /* Light gray border */
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+}
+
+input:focus, textarea:focus {
+  outline: none;
+  border-color: #007BFF; /* Blue border on focus */
 }
