@@ -31,6 +31,7 @@ const DevicePage = async ({ params }: DevicePageProps) => {
         <p className="mb-2">IMEI: {device.imei}</p>
         <p className="mb-2">Accessories: {device.accessories}</p>
         <p className="mb-2">Condition Notes: {device.conditionNotes}</p>
+        <p className="mb-2">Serial Number: {device.serialNumber}</p>
         <p className="mb-2">Date Added to Inventory: {device.dateAddedToInventory.toDateString()}</p>
         {device.dateCheckedOut && <p className="mb-2">Date Checked Out: {device.dateCheckedOut.toDateString()}</p>}
         {device.dateReturned && <p className="mb-2">Date Returned: {device.dateReturned.toDateString()}</p>}

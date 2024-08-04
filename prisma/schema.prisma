@@ -21,6 +21,7 @@ model Device {
   model                 String
   osVersion             String
   imei                  String
+  serialNumber          String?
   accessories           String
   conditionNotes        String
   dateAddedToInventory  DateTime

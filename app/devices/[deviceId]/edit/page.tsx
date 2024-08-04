@@ -12,6 +12,7 @@ const updateDevice = async (formData: FormData) => {
   const imei = formData.get('imei') as string;
   const accessories = formData.get('accessories') as string;
   const conditionNotes = formData.get('conditionNotes') as string;
+  const serialNumber = formData.get('serialNumber') as string
   const personId = formData.get('personId') as string;
   const previousOwnerId = formData.get('previousOwnerId') as string;
 
@@ -26,6 +27,7 @@ const updateDevice = async (formData: FormData) => {
       imei,
       accessories,
       conditionNotes,
+      serialNumber,
       personId,
       previousOwnerId,
     },
@@ -100,6 +102,13 @@ const DevicePage = async ({ params }: DevicePageProps) => {
             name="conditionNotes"
             placeholder="Condition Notes"
             defaultValue={device.conditionNotes}
+            className="p-2 border rounded"
+          />
+          <input
+            type="text"
+            name="serialNumber"
+            placeholder="Serial Number"
+            defaultValue={device.serialNumber ?? ''}
             className="p-2 border rounded"
           />
 

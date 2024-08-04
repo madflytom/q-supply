@@ -37,6 +37,7 @@ const createDevice = async (formData: FormData) => {
   const imei = formData.get('imei') as string;
   const accessories = formData.get('accessories') as string;
   const conditionNotes = formData.get('conditionNotes') as string;
+  const serialNumber = formData.get('serialNumber') as string;
   const personId = formData.get('personId') as string;
   const previousOwnerId = formData.get('previousOwnerId') as string;
 
@@ -60,6 +61,7 @@ const createDevice = async (formData: FormData) => {
       imei,
       accessories,
       conditionNotes,
+      serialNumber,
       personId: personId || null,
       previousOwnerId: previousOwnerId || null,
       dateAddedToInventory: new Date(),
@@ -116,6 +118,7 @@ const Home = async () => {
           <input type="text" name="imei" placeholder="IMEI" className="p-2 border rounded" />
           <input type="text" name="accessories" placeholder="Accessories" className="p-2 border rounded" />
           <input type="text" name="conditionNotes" placeholder="Condition Notes" className="p-2 border rounded" />
+          <input type="text" name="serialNumber" placeholder="Serial Number" className="p-2 border rounded" />
           <select name="personId" className="p-2 border rounded">
             <option value="">Select Person</option>
             {people.map((person) => (
