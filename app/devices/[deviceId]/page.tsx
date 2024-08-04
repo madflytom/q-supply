@@ -23,26 +23,28 @@ const DevicePage = async ({ params }: DevicePageProps) => {
   }
 
   return (
-    <div>
-      <h2>{device.model}</h2>
-      <p>Manufacturer: {device.manufacturer}</p>
-      <p>OS Version: {device.osVersion}</p>
-      <p>IMEI: {device.imei}</p>
-      <p>Accessories: {device.accessories}</p>
-      <p>Condition Notes: {device.conditionNotes}</p>
-      <p>Date Added to Inventory: {device.dateAddedToInventory.toDateString()}</p>
-      {device.dateCheckedOut && <p>Date Checked Out: {device.dateCheckedOut.toDateString()}</p>}
-      {device.dateReturned && <p>Date Returned: {device.dateReturned.toDateString()}</p>}
-      {device.person && (
-        <p>
-          Person: {device.person.firstName} {device.person.lastName}
-        </p>
-      )}
-      {device.previousOwner && (
-        <p>
-          Previous Owner: {device.previousOwner.firstName} {device.previousOwner.lastName}
-        </p>
-      )}
+    <div className="p-4 flex flex-col gap-y-8">
+      <section className="p-4 border rounded-lg shadow-md">
+        <h2 className="text-2xl font-bold mb-4">{device.model}</h2>
+        <p className="mb-2">Manufacturer: {device.manufacturer}</p>
+        <p className="mb-2">OS Version: {device.osVersion}</p>
+        <p className="mb-2">IMEI: {device.imei}</p>
+        <p className="mb-2">Accessories: {device.accessories}</p>
+        <p className="mb-2">Condition Notes: {device.conditionNotes}</p>
+        <p className="mb-2">Date Added to Inventory: {device.dateAddedToInventory.toDateString()}</p>
+        {device.dateCheckedOut && <p className="mb-2">Date Checked Out: {device.dateCheckedOut.toDateString()}</p>}
+        {device.dateReturned && <p className="mb-2">Date Returned: {device.dateReturned.toDateString()}</p>}
+        {device.person && (
+          <p className="mb-2">
+            Person: {device.person.firstName} {device.person.lastName}
+          </p>
+        )}
+        {device.previousOwner && (
+          <p className="mb-2">
+            Previous Owner: {device.previousOwner.firstName} {device.previousOwner.lastName}
+          </p>
+        )}
+      </section>
     </div>
   );
 };

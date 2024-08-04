@@ -47,28 +47,36 @@ const EditPersonPage = async ({ params }: EditPersonPageProps) => {
   }
 
   return (
-    <form action={updatePerson}>
-      <input type="hidden" name="id" value={person.id} />
-      <input
-        type="text"
-        name="firstName"
-        placeholder="First Name"
-        defaultValue={person.firstName}
-      />
-      <input
-        type="text"
-        name="lastName"
-        placeholder="Last Name"
-        defaultValue={person.lastName}
-      />
-      <input
-        type="email"
-        name="email"
-        placeholder="Email"
-        defaultValue={person.email}
-      />
-      <button type="submit">Update</button>
-    </form>
+    <div className="p-4 flex flex-col gap-y-8">
+      <section className="p-4 border rounded-lg shadow-md">
+        <h2 className="text-2xl font-bold mb-4">Edit Person</h2>
+        <form action={updatePerson} className="flex flex-col gap-y-2">
+          <input type="hidden" name="id" value={person.id} />
+          <input
+            type="text"
+            name="firstName"
+            placeholder="First Name"
+            defaultValue={person.firstName}
+            className="p-2 border rounded"
+          />
+          <input
+            type="text"
+            name="lastName"
+            placeholder="Last Name"
+            defaultValue={person.lastName}
+            className="p-2 border rounded"
+          />
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            defaultValue={person.email}
+            className="p-2 border rounded"
+          />
+          <button type="submit" className="p-2 bg-blue-500 text-white rounded">Update</button>
+        </form>
+      </section>
+    </div>
   );
 };
 

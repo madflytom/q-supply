@@ -105,96 +105,104 @@ const Home = async () => {
   const people = await prisma.person.findMany();
 
   return (
-    <div className="p-4 flex flex-col gap-y-4">
-
-      <h2>Posts</h2>
-
-      <form action={createPost} className="flex flex-col gap-y-2">
-        <input type="text" name="name" placeholder="Name" />
-        <button type="submit">Create</button>
-      </form>
-
-      <ul className="flex flex-col gap-y-2">
-        {posts.map((post) => (
-          <li key={post.id} className="flex items-center gap-x-4">
-            <div>{post.name}</div>
-            <div className="flex items-center">
-              <Link href={`/posts/${post.id}`}>Go To</Link> |{' '}
-              <Link href={`/posts/${post.id}/edit`}>Edit</Link>
-              <form action={deletePost.bind(null, post.id)}>
-                <button type="submit">Delete</button>
-              </form>
-            </div>
-          </li>
-        ))}
-      </ul>
-
-      <h2>Devices</h2>
-
-      <form action={createDevice} className="flex flex-col gap-y-2">
-        <input type="text" name="manufacturer" placeholder="Manufacturer" />
-        <input type="text" name="model" placeholder="Model" />
-        <input type="text" name="osVersion" placeholder="OS Version" />
-        <input type="text" name="imei" placeholder="IMEI" />
-        <input type="text" name="accessories" placeholder="Accessories" />
-        <input type="text" name="conditionNotes" placeholder="Condition Notes" />
-        
-        <select name="personId">
-          <option value="">Select Person</option>
-          {people.map((person) => (
-            <option key={person.id} value={person.id}>
-              {person.firstName} {person.lastName}
-            </option>
+    <div className="p-4 flex flex-col gap-y-8">
+      <section className="p-4 border rounded-lg shadow-md">
+        <h2 className="text-2xl font-bold mb-4">Posts</h2>
+        <form action={createPost} className="flex flex-col gap-y-2 mb-4">
+          <input type="text" name="name" placeholder="Name" className="p-2 border rounded" />
+          <button type="submit" className="p-2 bg-blue-500 text-white rounded">Create Post</button>
+        </form>
+        <ul className="flex flex-col gap-y-2">
+          {posts.map((post) => (
+            <li key={post.id} className="flex items-center justify-between p-2 border rounded">
+              <div>{post.name}</div>
+              <div className="flex items-center gap-x-2">
+                <Link href={`/posts/${post.id}`}>
+                  <button className="p-2 bg-green-500 text-white rounded">Go To</button>
+                </Link>
+                <Link href={`/posts/${post.id}/edit`}>
+                  <button className="p-2 bg-yellow-500 text-white rounded">Edit</button>
+                </Link>
+                <form action={deletePost.bind(null, post.id)}>
+                  <button type="submit" className="p-2 bg-red-500 text-white rounded">Delete</button>
+                </form>
+              </div>
+            </li>
           ))}
-        </select>
+        </ul>
+      </section>
 
-        <select name="previousOwnerId">
-          <option value="">Select Previous Owner</option>
-          {people.map((person) => (
-            <option key={person.id} value={person.id}>
-              {person.firstName} {person.lastName}
-            </option>
+      <section className="p-4 border rounded-lg shadow-md">
+        <h2 className="text-2xl font-bold mb-4">Devices</h2>
+        <form action={createDevice} className="flex flex-col gap-y-2 mb-4">
+          <input type="text" name="manufacturer" placeholder="Manufacturer" className="p-2 border rounded" />
+          <input type="text" name="model" placeholder="Model" className="p-2 border rounded" />
+          <input type="text" name="osVersion" placeholder="OS Version" className="p-2 border rounded" />
+          <input type="text" name="imei" placeholder="IMEI" className="p-2 border rounded" />
+          <input type="text" name="accessories" placeholder="Accessories" className="p-2 border rounded" />
+          <input type="text" name="conditionNotes" placeholder="Condition Notes" className="p-2 border rounded" />
+          <select name="personId" className="p-2 border rounded">
+            <option value="">Select Person</option>
+            {people.map((person) => (
+              <option key={person.id} value={person.id}>
+                {person.firstName} {person.lastName}
+              </option>
+            ))}
+          </select>
+          <select name="previousOwnerId" className="p-2 border rounded">
+            <option value="">Select Previous Owner</option>
+            {people.map((person) => (
+              <option key={person.id} value={person.id}>
+                {person.firstName} {person.lastName}
+              </option>
+            ))}
+          </select>
+          <button type="submit" className="p-2 bg-blue-500 text-white rounded">Create Device</button>
+        </form>
+        <ul className="flex flex-col gap-y-2">
+          {devices.map((device) => (
+            <li key={device.id} className="flex items-center justify-between p-2 border rounded">
+              <div>{device.model}</div>
+              <div className="flex items-center gap-x-2">
+                <Link href={`/devices/${device.id}`}>
+                  <button className="p-2 bg-green-500 text-white rounded">Go To</button>
+                </Link>
+                <Link href={`/devices/${device.id}/edit`}>
+                  <button className="p-2 bg-yellow-500 text-white rounded">Edit</button>
+                </Link>
+                <form action={deleteDevice.bind(null, device.id)}>
+                  <button type="submit" className="p-2 bg-red-500 text-white rounded">Delete</button>
+                </form>
+              </div>
+            </li>
           ))}
-        </select>
+        </ul>
+      </section>
 
-        <button type="submit">Create</button>
-      </form>
-
-      <ul className="flex flex-col gap-y-2">
-        {devices.map((device) => (
-          <li key={device.id} className="flex items-center gap-x-4">
-            <div>{device.model}</div>
-            <div className="flex items-center">
-              <Link href={`/devices/${device.id}`}>Go To</Link> |{' '}
-              <Link href={`/devices/${device.id}/edit`}>Edit</Link>
-              <form action={deleteDevice.bind(null, device.id)}>
-                <button type="submit">Delete</button>
-              </form>
-            </div>
-          </li>
-        ))}
-      </ul>
-
-      <h2>People</h2>
-
-      <form action={createPerson} className="flex flex-col gap-y-2">
-        <input type="text" name="firstName" placeholder="First Name" />
-        <input type="text" name="lastName" placeholder="Last Name" />
-        <input type="email" name="email" placeholder="Email" />
-        <button type="submit">Create</button>
-      </form>
-
-      <ul className="flex flex-col gap-y-2">
-        {people.map((person) => (
-          <li key={person.id} className="flex items-center gap-x-4">
-            <div>{person.firstName} {person.lastName}</div>
-            <div className="flex items-center">
-              <Link href={`/persons/${person.id}`}>Go To</Link> |{' '}
-              <Link href={`/persons/${person.id}/edit`}>Edit</Link>
-            </div>
-          </li>
-        ))}
-      </ul>
+      <section className="p-4 border rounded-lg shadow-md">
+        <h2 className="text-2xl font-bold mb-4">People</h2>
+        <form action={createPerson} className="flex flex-col gap-y-2 mb-4">
+          <input type="text" name="firstName" placeholder="First Name" className="p-2 border rounded" />
+          <input type="text" name="lastName" placeholder="Last Name" className="p-2 border rounded" />
+          <input type="email" name="email" placeholder="Email" className="p-2 border rounded" />
+          <button type="submit" className="p-2 bg-blue-500 text-white rounded">Create Person</button>
+        </form>
+        <ul className="flex flex-col gap-y-2">
+          {people.map((person) => (
+            <li key={person.id} className="flex items-center justify-between p-2 border rounded">
+              <div>{person.firstName} {person.lastName}</div>
+              <div className="flex items-center gap-x-2">
+                <Link href={`/persons/${person.id}`}>
+                  <button className="p-2 bg-green-500 text-white rounded">Go To</button>
+                </Link>
+                <Link href={`/persons/${person.id}/edit`}>
+                  <button className="p-2 bg-yellow-500 text-white rounded">Edit</button>
+                </Link>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </section>
     </div>
   );
 };

@@ -55,65 +55,78 @@ const DevicePage = async ({ params }: DevicePageProps) => {
   const people = await prisma.person.findMany();
 
   return (
-    <form action={updateDevice}>
-      <input type="hidden" name="id" value={device.id} />
-      <input
-        type="text"
-        name="manufacturer"
-        placeholder="Manufacturer"
-        defaultValue={device.manufacturer}
-      />
-      <input
-        type="text"
-        name="model"
-        placeholder="Model"
-        defaultValue={device.model}
-      />
-      <input
-        type="text"
-        name="osVersion"
-        placeholder="OS Version"
-        defaultValue={device.osVersion}
-      />
-      <input
-        type="text"
-        name="imei"
-        placeholder="IMEI"
-        defaultValue={device.imei}
-      />
-      <input
-        type="text"
-        name="accessories"
-        placeholder="Accessories"
-        defaultValue={device.accessories}
-      />
-      <input
-        type="text"
-        name="conditionNotes"
-        placeholder="Condition Notes"
-        defaultValue={device.conditionNotes}
-      />
-      
-      <select name="personId" defaultValue={device.personId || ''}>
-        <option value="">Select Person</option>
-        {people.map((person) => (
-          <option key={person.id} value={person.id}>
-            {person.firstName} {person.lastName}
-          </option>
-        ))}
-      </select>
+    <div className="p-4 flex flex-col gap-y-8">
+      <section className="p-4 border rounded-lg shadow-md">
+        <h2 className="text-2xl font-bold mb-4">Edit Device</h2>
+        <form action={updateDevice} className="flex flex-col gap-y-2">
+          <input type="hidden" name="id" value={device.id} />
+          <input
+            type="text"
+            name="manufacturer"
+            placeholder="Manufacturer"
+            defaultValue={device.manufacturer}
+            className="p-2 border rounded"
+          />
+          <input
+            type="text"
+            name="model"
+            placeholder="Model"
+            defaultValue={device.model}
+            className="p-2 border rounded"
+          />
+          <input
+            type="text"
+            name="osVersion"
+            placeholder="OS Version"
+            defaultValue={device.osVersion}
+            className="p-2 border rounded"
+          />
+          <input
+            type="text"
+            name="imei"
+            placeholder="IMEI"
+            defaultValue={device.imei}
+            className="p-2 border rounded"
+          />
+          <input
+            type="text"
+            name="accessories"
+            placeholder="Accessories"
+            defaultValue={device.accessories}
+            className="p-2 border rounded"
+          />
+          <input
+            type="text"
+            name="conditionNotes"
+            placeholder="Condition Notes"
+            defaultValue={device.conditionNotes}
+            className="p-2 border rounded"
+          />
 
-      <select name="previousOwnerId" defaultValue={device.previousOwnerId || ''}>
-        <option value="">Select Previous Owner</option>
-        {people.map((person) => (
-          <option key={person.id} value={person.id}>
-            {person.firstName} {person.lastName}
-          </option>
-        ))}
-      </select>
+          <h3 className="text-xl font-semibold mt-4">Current Owner</h3>
+          <select name="personId" defaultValue={device.personId || ''} className="p-2 border rounded">
+            <option value="">Select Person</option>
+            {people.map((person) => (
+              <option key={person.id} value={person.id}>
+                {person.firstName} {person.lastName}
+              </option>
+            ))}
+          </select>
 
-      <button type="submit">Update</button>
-    </form>
+          <h3 className="text-xl font-semibold mt-4">Previous Owner</h3>
+          <select name="previousOwnerId" defaultValue={device.previousOwnerId || ''} className="p-2 border rounded">
+            <option value="">Select Previous Owner</option>
+            {people.map((person) => (
+              <option key={person.id} value={person.id}>
+                {person.firstName} {person.lastName}
+              </option>
+            ))}
+          </select>
+
+          <button type="submit" className="p-2 bg-blue-500 text-white rounded">Update</button>
+        </form>
+      </section>
+    </div>
   );
 };
 
