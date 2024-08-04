@@ -40,6 +40,18 @@ const createDevice = async (formData: FormData) => {
   const personId = formData.get('personId') as string;
   const previousOwnerId = formData.get('previousOwnerId') as string;
 
+  // Validate personId and previousOwnerId
+  const person = personId ? await prisma.person.findUnique({ where: { id: personId } }) : null;
+  const previousOwner = previousOwnerId ? await prisma.person.findUnique({ where: { id: previousOwnerId } }) : null;
+
+  if (personId && !person) {
+    throw new Error(`Person with ID ${personId} does not exist.`);
+  }
+
+  if (previousOwnerId && !previousOwner) {
+    throw new Error(`Previous owner with ID ${previousOwnerId} does not exist.`);
+  }
+
   await prisma.device.create({
     data: {
       manufacturer,
@@ -48,8 +60,8 @@ const createDevice = async (formData: FormData) => {
       imei,
       accessories,
       conditionNotes,
-      personId,
-      previousOwnerId,
+      personId: personId || null,
+      previousOwnerId: previousOwnerId || null,
       dateAddedToInventory: new Date(),
     },
   });
@@ -69,6 +81,24 @@ const deleteDevice = async (id: string) => {
   revalidatePath('/');
 };
 
+const createPerson = async (formData: FormData) => {
+  'use server';
+
+  const firstName = formData.get('firstName') as string;
+  const lastName = formData.get('lastName') as string;
+  const email = formData.get('email') as string;
+
+  await prisma.person.create({
+    data: {
+      firstName,
+      lastName,
+      email,
+    },
+  });
+
+  revalidatePath('/');
+};
+
 const Home = async () => {
   const posts = await prisma.post.findMany();
   const devices = await prisma.device.findMany();
@@ -76,6 +106,7 @@ const Home = async () => {
 
   return (
     <div className="p-4 flex flex-col gap-y-4">
+
       <h2>Posts</h2>
 
       <form action={createPost} className="flex flex-col gap-y-2">
@@ -139,6 +170,27 @@ const Home = async () => {
               <form action={deleteDevice.bind(null, device.id)}>
                 <button type="submit">Delete</button>
               </form>
+            </div>
+          </li>
+        ))}
+      </ul>
+
+      <h2>People</h2>
+
+      <form action={createPerson} className="flex flex-col gap-y-2">
+        <input type="text" name="firstName" placeholder="First Name" />
+        <input type="text" name="lastName" placeholder="Last Name" />
+        <input type="email" name="email" placeholder="Email" />
+        <button type="submit">Create</button>
+      </form>
+
+      <ul className="flex flex-col gap-y-2">
+        {people.map((person) => (
+          <li key={person.id} className="flex items-center gap-x-4">
+            <div>{person.firstName} {person.lastName}</div>
+            <div className="flex items-center">
+              <Link href={`/persons/${person.id}`}>Go To</Link> |{' '}
+              <Link href={`/persons/${person.id}/edit`}>Edit</Link>
             </div>
           </li>
         ))}
