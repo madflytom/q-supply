@@ -106,32 +106,7 @@ const Home = async () => {
 
   return (
     <div className="p-4 flex flex-col gap-y-8">
-      <section className="p-4 border rounded-lg shadow-md">
-        <h2 className="text-2xl font-bold mb-4">Posts</h2>
-        <form action={createPost} className="flex flex-col gap-y-2 mb-4">
-          <input type="text" name="name" placeholder="Name" className="p-2 border rounded" />
-          <button type="submit" className="p-2 bg-blue-500 text-white rounded">Create Post</button>
-        </form>
-        <ul className="flex flex-col gap-y-2">
-          {posts.map((post) => (
-            <li key={post.id} className="flex items-center justify-between p-2 border rounded">
-              <div>{post.name}</div>
-              <div className="flex items-center gap-x-2">
-                <Link href={`/posts/${post.id}`}>
-                  <button className="p-2 bg-green-500 text-white rounded">Go To</button>
-                </Link>
-                <Link href={`/posts/${post.id}/edit`}>
-                  <button className="p-2 bg-yellow-500 text-white rounded">Edit</button>
-                </Link>
-                <form action={deletePost.bind(null, post.id)}>
-                  <button type="submit" className="p-2 bg-red-500 text-white rounded">Delete</button>
-                </form>
-              </div>
-            </li>
-          ))}
-        </ul>
-      </section>
-
+      <h2 className="text-2xl font-bold mb-4">Q-Supply - Inventory</h2>
       <section className="p-4 border rounded-lg shadow-md">
         <h2 className="text-2xl font-bold mb-4">Devices</h2>
         <form action={createDevice} className="flex flex-col gap-y-2 mb-4">
