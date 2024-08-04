@@ -11,6 +11,32 @@ datasource db {
 }
 
 model Post {
-  id  String  @id @default(cuid())
-  name  String
+  id      String  @id @default(cuid()) 
+  name    String
+}
+
+model Device {
+  id                    String  @id @default(cuid()) 
+  manufacturer          String
+  model                 String
+  osVersion             String
+  imei                  String
+  accessories           String
+  conditionNotes        String
+  dateAddedToInventory  DateTime
+  dateCheckedOut        DateTime?
+  dateReturned          DateTime?
+  previousOwnerId       String?  // Foreign key to Person model
+  previousOwner         Person?  @relation("PreviousOwner", fields: [previousOwnerId], references: [id])
+  personId              String?  // Foreign key to Person model
+  person                Person?  @relation(fields: [personId], references: [id])
+}
+
+model Person {
+  id            String  @id @default(cuid()) 
+  firstName     String
+  lastName      String
+  email         String  @unique
+  devices       Device[]  // One-to-many relation with Device model
+  previousDevices Device[] @relation("PreviousOwner") // One-to-many relation with Device model
 }
